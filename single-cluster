@@ -1,0 +1,125 @@
+ubuntu machine-1
+
+   sudo adduser hduser
+   sudo visudo                           ..... edit this file by below line
+       hduser ALL=(ALL) NOPASSWD:ALL
+   logout
+
+====================================================================================================================
+  now login by hduser user account to the same machine-1
+
+   now open new terminal
+       cd Desktop
+       sudo apt install pdsh -y
+       sudo systemctl start ssh 
+       sudo systemctl enable ssh
+       ssh localhost                                   ................................   to check whether ssh is working or not
+       exit 
+
+       sudo nano /etc/resolv.conf
+             edit below line put the ip 
+              192.168.72.20                        ....................................  cdac ip
+                 
+       ssh-keygen -t rsa                           ..................................... making the ssh password-less so generating the key 
+       ssh-copy-id -i ~/.ssh/id_rsa.pub hduser@localhost
+
+       .......... now verify password-less ssh by below command  ..........
+       ssh localhost
+                ...    now for this login it will not ask for password for login
+
+
+          
+          -----------------------------   JAVA Configure   ---------------------------------------------
+          
+        java --version
+        sudo apt install openjdk-8-jdk -y
+
+
+
+        ------------------------------    after configuration make some dir and inside that file copy and paste and etc things    
+
+       touch test{1..20}.txt
+
+       - create a dir by name data in hdfs copy all above txt files in data dir on hdfs
+                touch test{1..20}.txt                                     ............................ making the text file 1 to 20
+                hdfs dfs -mkdir /data                                     ............................ making the dir data in hdfs
+                hdfs dfs -ls /                                            ............................ listing the dir and files by -ls in hdfs
+                hdfs dfs -put test{1..20}.txt /data                       ............................ puting all 1 to 20 files in data dir
+                hdfs dfs -ls /data                                        ............................ listing the 1 to 20 files in data dir is put
+
+
+
+
+        -  to view the content inside the file use the below command
+                 hdfs dfs -cat /demo.txt
+
+       -   to copy from hdfs(hadoop)  to the local machine(ubuntu) use the below command
+                  hdfs dfs -copyToLocal /data/*.txt .                            ..................... it will copy from hdfs and paste in data dir
+
+       -   to copy from local machine(ubuntu) and paste in hdfs(hadoop)
+                  hdfs dfs -copyFromLocal dst_path(in hdfs at what location you want to paste put that path here)
+
+      -     to remove dir use below command
+                 hdfs dfs -rm -r -f /data
+                 rm -rf *.txt                ...........   all txt extension file will be deleted.
+                 
+                
+      -     combine(merge) the two output file in one file   use the below command
+                 hdfs dfs -getmerge /output1/test1.txt /output2/test2.txt  output.txt .            
+                                      in output dir the test1.txt and test2.txt file there that will get merge and output will store in output.txt 
+                                      file in current dir(last dot)
+                                      
+            
+
+
+
+
+
+
+                     hdfs to local
+                           -ls /
+                           mkdir /acts
+                           copyFromLocal src dst
+                           copyToLocal   src dst
+                           put
+                           get
+                           moveFromLocal
+
+
+                    hdfs-file to hdfs-file
+                           -rm -r -f dir_name
+                           -mv move or rename hdfs_file/dir
+                           -cp copy
+                           -cat
+
+
+     Q]   create a hadoop single node cluster
+          create 2 files by name file1.txt and file2.txt on linux machine. create a dir by name data in hdfs. move both the files in the data 
+          dir on hdfs . create a another dir by name reports in hdfs . copy file2.txt from data dir on hdfs and put on reports dir. then rename 
+          this file to old.txt . Then display the contents of the old.txt file .
+
+
+             touch file1.txt
+             touch file2.txt
+             hdfs dfs -mkdir /data
+             hdfs dfs -copyFromLocal file1.txt/data
+             hdfs dfs -copyFromLocal file2.txt/data
+             hdfs dfs -mkdir /reports
+             hdfs dfs -put data/file2.txt reports/file2.txt
+             hdfs dfs -mv file2.txt old.txt
+             hdfs dfs -cat old.txt
+
+
+
+
+
+
+                
+
+
+
+
+
+
+
+       
