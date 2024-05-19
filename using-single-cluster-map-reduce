@@ -1,3 +1,5 @@
+on master
+
 google it
    - apache hadoop wordcount program
    - then click on first link  (apache hadoop map reduce) and then click on wordcount v1.0 then the word count program will open.
@@ -85,18 +87,18 @@ public class WordCount {
        hii
        hello world
        bbye
- jps                               ...  start the cluster if not
+ jps                                    ....  start the cluster if not
  hdfs dfs -mkdir /wordcount
- hdfs dfs -mkdir /wordcount/input
- hdfs dfs -put words.txt /wordcount/input
- hadoop jar wc.jar WordCount /wordcount/input /wordcount/output
+ hdfs dfs -mkdir /wordcount/input       .... created input dir in wordcount dir
+ hdfs dfs -put words.txt /wordcount/input  .... put the words.txt file in wordcount/input here
+ hadoop jar wc.jar WordCount /wordcount/input /wordcount/output      .... run command
  start-all.sh
 
  hdfs dfs -ls /wordcount
  hdfs dfs -ls /wordcount/output
  hdfs dfss -cat /wordcount/output/part-r-00000
 
-----------------------------------------------------------------
+-----------------------------------------------------------------------------------
 for single cluster (if error comes) in below file
         nano maapred-site.xml
            HADOOP_HOME
@@ -104,7 +106,12 @@ for single cluster (if error comes) in below file
 for multiple-cluster
          nano maapred-site.xml
             <value>$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/*:$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/lib/*</value>
+         scp mapred-site.xml DN1:/usr/local/hadoop/etc/hadoop
+         scp mapred-site.xml DN2:/usr/local/hadoop/etc/hadoop
+         scp mapred-site.xml DN3:/usr/local/hadoop/etc/hadoop
 
+      start-all.sh
+      hadoop jar wc.jar WordCount /wordcount/input /wordcount/output   
 
 
 
