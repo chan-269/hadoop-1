@@ -52,5 +52,17 @@
     cd /usr/local/hadoop/etc/hadoop
     nano hdfs-site.xml
                 <property>
-                
+                <name>dfs.secondary.http.address</name>
+                <value>snn:9869</value>
+                </property>
+
+
+-------------------------------------------- datanode3 -----------------------------------------------------
+
+       ls
+       nano hdfs-site.xml
+                </property>
+                 <name>dfs.namenode.checkpoint.dir</name>
+                  <value>
+
 
