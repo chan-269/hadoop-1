@@ -12,7 +12,7 @@ cd Desktop
 login with the new user hduser
 open terminal
     cd Desktop
-       - firstly set the dns to avoid error during the updateor while installing something (follow the below command)
+       - firstly set the dns to avoid error during the update while installing something (follow the below command)
            sudo nano /etc/resolv.conf
                nameserver 192.168.72.20                          ...............   put this in file this is a cdac dns number
            sudo apt update -y
