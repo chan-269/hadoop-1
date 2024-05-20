@@ -42,6 +42,15 @@
      
 -------------------------------------------- master -----------------------------------------------------
 
-
-
+     sudo nano /etc/hosts 
+               edit this file
+               change the DN3 to snn
+                192.168.144.140 snn 
+    rsync -a /usr/local/hadoop/etc/hadoop/* hduser@snn:/usr/local/hadoop/etc/hadoop
+    ssh hduser@snn
+    exit
+    cd /usr/local/hadoop/etc/hadoop
+    nano hdfs-site.xml
+                <property>
+                
 
