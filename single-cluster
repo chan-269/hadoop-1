@@ -241,3 +241,121 @@
 ==============================================================================================================================
 
 
+              wordcount  in single node
+         
+
+on master
+
+google it
+   - apache hadoop wordcount program
+   - then click on first link  (apache hadoop map reduce) and then click on wordcount v1.0 then the word count program will open.
+   - copy the code
+
+come to terminal
+    make a dir
+    nano WordCount.java
+         paste the code in this file which is copied
+     below is the code of wordcount in java hadoop
+
+
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+public class WordCount {
+
+  public static class TokenizerMapper
+       extends Mapper<Object, Text, Text, IntWritable>{
+
+    private final static IntWritable one = new IntWritable(1);
+    private Text word = new Text();
+
+    public void map(Object key, Text value, Context context
+                    ) throws IOException, InterruptedException {
+      StringTokenizer itr = new StringTokenizer(value.toString());
+      while (itr.hasMoreTokens()) {
+        word.set(itr.nextToken());
+        context.write(word, one);
+      }
+    }
+  }
+
+  public static class IntSumReducer
+       extends Reducer<Text,IntWritable,Text,IntWritable> {
+    private IntWritable result = new IntWritable();
+
+    public void reduce(Text key, Iterable<IntWritable> values,
+                       Context context
+                       ) throws IOException, InterruptedException {
+      int sum = 0;
+      for (IntWritable val : values) {
+        sum += val.get();
+      }
+      result.set(sum);
+      context.write(key, result);
+    }
+  }
+
+  public static void main(String[] args) throws Exception {
+    Configuration conf = new Configuration();
+    Job job = Job.getInstance(conf, "word count");
+    job.setJarByClass(WordCount.class);
+    job.setMapperClass(TokenizerMapper.class);
+    job.setCombinerClass(IntSumReducer.class);
+    job.setReducerClass(IntSumReducer.class);
+    job.setOutputKeyClass(Text.class);
+    job.setOutputValueClass(IntWritable.class);
+    FileInputFormat.addInputPath(job, new Path(args[0]));
+    FileOutputFormat.setOutputPath(job, new Path(args[1]));
+    System.exit(job.waitForCompletion(true) ? 0 : 1);
+  }
+}
+
+   -----------   the file name should be same as class name
+
+
+ echo $(classpath)                                    ...  it will print the path
+ export HADOOP_CLASSPATH=$(hadoop classpath)          ...  path will be store
+ javac -classpath $HADOOP_CLASSPATH WordCount .java   ...  it will compile it
+ ls
+ jar cf wc.jar WordCount*.class                       ...  it will create a jar file of all class
+ nano words.txt
+    write into this file
+       hii
+       hello world
+       bbye
+ jps                                    ....  start the cluster if not
+ hdfs dfs -mkdir /wordcount
+ hdfs dfs -mkdir /wordcount/input       .... created input dir in wordcount dir
+ hdfs dfs -put words.txt /wordcount/input  .... put the words.txt file in wordcount/input here
+ hadoop jar wc.jar WordCount /wordcount/input /wordcount/output      .... run command
+ start-all.sh
+
+ hdfs dfs -ls /wordcount
+ hdfs dfs -ls /wordcount/output
+ hdfs dfss -cat /wordcount/output/part-r-00000
+
+-----------------------------------------------------------------------------------
+for single cluster (if error comes) in below file
+        nano maapred-site.xml
+           HADOOP_HOME
+
+for multiple-cluster
+         nano maapred-site.xml
+            <value>$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/*:$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/lib/*</value>
+         scp mapred-site.xml DN1:/usr/local/hadoop/etc/hadoop
+         scp mapred-site.xml DN2:/usr/local/hadoop/etc/hadoop
+         scp mapred-site.xml DN3:/usr/local/hadoop/etc/hadoop
+
+      start-all.sh
+      hadoop jar wc.jar WordCount /wordcount/input /wordcount/output  
+
