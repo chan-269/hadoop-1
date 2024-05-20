@@ -1,0 +1,47 @@
+    if you want to change the DN3 to  secondary-name-node(snn)
+
+
+-------------------------------------------- master -----------------------------------------------------
+    stop-all.sh
+    cd /usr/local/hadoop/etc/hadoop
+    nano workers
+         edit this file
+         from here from DN3 and add snn
+            snn
+    hdfs dfsadmin -refreshNodes
+
+
+-------------------------------------------- datanode3 -----------------------------------------------------
+    jps
+    hadoop-daemon.sh stop datanode
+    jps
+    yarn-daemon.sh stop nodemanager
+    jps
+
+
+-------------------------------------------- master -----------------------------------------------------
+
+     go in browser
+     htpp://master:9870
+
+
+-------------------------------------------- datanode3 -----------------------------------------------------
+
+     sudo hostnamectl set-hostname snn
+     sudo hostname snn
+     exit
+     open new terminal
+     cd Desktop
+     sudo nano /etc/hosts
+             edit this file
+             change the DN3 to snn
+                192.168.144.140 snn
+     cd /usr/local/hadoop/etc/hadoop
+     rm -rf *
+     ls
+     
+-------------------------------------------- master -----------------------------------------------------
+
+
+
+
