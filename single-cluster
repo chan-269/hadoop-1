@@ -8,7 +8,7 @@
                     -   Provide sudo permissions to the above user.
                  sudo visudo
                     - Add following line
-                        hduser ALL:(ALL) NOPASSWD: ALL
+                        hduser ALL=(ALL) NOPASSWD: ALL
                      Save the file.
 
                   ---      Login as the hduser   ------ .
@@ -134,10 +134,10 @@
                            F. Edit workers file and add localhost entry.
                                      workers file edit
                                             nano workers
-                                                 remove localhost and add the below-line
-                                             datanode
-                                             namenode
-                                    and local host entry
+                                                 only add localhost
+                                         localhost
+                                            
+                                    
 
     
                   8. Start Hadoop daemons
