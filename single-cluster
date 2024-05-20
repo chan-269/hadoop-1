@@ -346,11 +346,11 @@ public class WordCount {
 
 -----------------------------------------------------------------------------------
 for single cluster (if error comes) in below file
-        nano maapred-site.xml
+        nano mapred-site.xml
            HADOOP_HOME
 
 for multiple-cluster
-         nano maapred-site.xml
+         nano mapred-site.xml
             <value>$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/*:$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/lib/*</value>
          scp mapred-site.xml DN1:/usr/local/hadoop/etc/hadoop
          scp mapred-site.xml DN2:/usr/local/hadoop/etc/hadoop
