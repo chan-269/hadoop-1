@@ -323,9 +323,9 @@ public class WordCount {
    -----------   the file name should be same as class name
 
 
- echo $(classpath)                                    ...  it will print the path
+ echo $classpath                                    ...  it will print the path
  export HADOOP_CLASSPATH=$(hadoop classpath)          ...  path will be store
- javac -classpath $HADOOP_CLASSPATH WordCount .java   ...  it will compile it
+ javac -classpath $HADOOP_CLASSPATH WordCount.java   ...  it will compile it
  ls
  jar cf wc.jar WordCount*.class                       ...  it will create a jar file of all class
  nano words.txt
