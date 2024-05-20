@@ -62,7 +62,37 @@
        ls
        nano hdfs-site.xml
                 </property>
-                 <name>dfs.namenode.checkpoint.dir</name>
-                  <value>
+                <name>dfs.namenode.checkpoint.dir</name>
+                <value>/usr/local/hadoop/hd-data/snn</value>
+                </property>
+       cd ../../hd-data
+       ls
+       rm -rf *
+       cd /usr/local/hadoop/etc/hadoop
+            nano hdfs-site.xml
+                     <property>
+                     <name>dfs.namenode.checkpoint.dir</name>
+            	     <value>/usr/local/hadoop/hd-data/snn</value>
+                     </property>
+                     <property>
+            	     <name>dfs.namenode.checkpoint.period</name>
+            	     <value>1800</value>
+                     </property>
+
+
+-------------------------------------------- master -----------------------------------------------------
+
+      start-all.sh
+      jps
+      hdfs dfsadmin -refreshNodes
+
+
+-------------------------------------------- datanode3 -----------------------------------------------------
+
+        ---- data node -----
+        check /usr/local/hadoop/hd-data
+        check /usr/local/hadoop/hd-data/snn
+
+       
 
 
